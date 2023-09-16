@@ -11,15 +11,16 @@ const PaymentForm = () => {
     e.preventDefault();
     if (!stripe || !elements) return;
 
-    // Setup netlify function
-    const response = await fetch("/.vercel/functions/create-payment-intent", {
+    // Setup vercel function
+    const response = await fetch("/api/create-payment-intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ amount: 10000 }),
     }).then((res) => res.json());
-    console.log(response);
+    const data = JSON.parse(response.message.body);
+    console.log(data);
   };
   return (
     <PaymentFormContainer>
