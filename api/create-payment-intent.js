@@ -1,6 +1,5 @@
 import Stripe from "stripe";
-// eslint-disable-next-line no-undef
-const stripe = Stripe(process.env.VITE_STRIPE_SECRET_KEY);
+const stripe = Stripe(import.meta.env.VITE_STRIPE_SECRET_KEY);
 export default async (req, res) => {
   try {
     const amount = req.body.amount;
