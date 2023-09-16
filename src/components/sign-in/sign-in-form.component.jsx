@@ -1,7 +1,8 @@
 import { useState } from "react";
 import FormInput from "../form-input/form-input.component";
 import "./sign-in-form.styles";
-import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
+import Button from "../button/button.component";
+import { BUTTON_TYPE_CLASSES } from "../button/button.type";
 import { ButtonsContainer, SignInContainer } from "./sign-in-form.styles";
 import { useDispatch } from "react-redux";
 import {
