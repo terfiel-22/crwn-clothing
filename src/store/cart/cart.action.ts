@@ -12,7 +12,7 @@ const addCartItem = (
   productToAdd: CategoryItem
 ): CartItem[] => {
   const existingCartItem = cartItems.find(
-    (cartItem): boolean => cartItem.id === productToAdd.id
+    (cartItem) => cartItem.id === productToAdd.id
   );
   if (existingCartItem) {
     return cartItems.map((cartItem) =>
