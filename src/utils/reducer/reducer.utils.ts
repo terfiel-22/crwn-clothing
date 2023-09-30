@@ -5,15 +5,15 @@ type Matchable<AC extends () => AnyAction> = AC & {
   match(action: AnyAction): action is ReturnType<AC>;
 };
 
-export function withMatchmaker<AC extends () => AnyAction & { type: string }>(
+export function withMatcher<AC extends () => AnyAction & { type: string }>(
   actionCreator: AC
 ): Matchable<AC>;
 
-export function withMatchmaker<
+export function withMatcher<
   AC extends (...args: any[]) => AnyAction & { type: string }
 >(actionCreator: AC): Matchable<AC>;
 
-export function withMatchmaker(actionCreator: Function) {
+export function withMatcher(actionCreator: Function) {
   const type = actionCreator().type;
   return Object.assign(actionCreator, {
     type,
