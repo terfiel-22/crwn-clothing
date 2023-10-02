@@ -1,3 +1,4 @@
+import { User } from "firebase/auth";
 import {
   AdditionalInformation,
   UserData,
@@ -43,7 +44,7 @@ export type SignInSuccess = ActionWithPayload<
   UserData
 >;
 export const signInSuccess = withMatcher(
-  (user: UserData): SignInSuccess =>
+  (user: UserData & { id: string }): SignInSuccess =>
     createAction(USER_ACTION_TYPE.SIGN_IN_SUCCESS, user)
 );
 
@@ -75,10 +76,10 @@ export const signUpStart = withMatcher(
 
 export type SignUpSuccess = ActionWithPayload<
   USER_ACTION_TYPE.SIGN_UP_SUCCESS,
-  { user: UserData; additionalInfo: AdditionalInformation }
+  { user: User; additionalInfo: AdditionalInformation }
 >;
 export const signUpSuccess = withMatcher(
-  (user: UserData, additionalInfo: AdditionalInformation): SignUpSuccess =>
+  (user: User, additionalInfo: AdditionalInformation): SignUpSuccess =>
     createAction(USER_ACTION_TYPE.SIGN_UP_SUCCESS, { user, additionalInfo })
 );
 
