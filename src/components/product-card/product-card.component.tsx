@@ -5,8 +5,13 @@ import { BUTTON_TYPE_CLASSES } from "../button/button.type";
 import "./product-card.styles";
 import { Footer, ProductCardContainer } from "./product-card.styles";
 import { selectCartItems } from "../../store/cart/cart.selector";
+import { CategoryItem } from "../../store/categories/categories.types";
+import { FC } from "react";
 
-const ProductCard = ({ product }) => {
+type ProductCardProps = {
+  product: CategoryItem;
+};
+const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const { name, price, imageUrl } = product;
   const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
