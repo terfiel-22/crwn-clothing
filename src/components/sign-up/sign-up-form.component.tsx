@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import FormInput from "../form-input/form-input.component";
 import "./sign-up-form.styles";
 import Button from "../button/button.component";
 import { SignUpContainer } from "./sign-up-form.styles";
 import { useDispatch } from "react-redux";
 import { signUpStart } from "../../store/user/user.action";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
 
 const defaultFormFields = {
   displayName: "",
@@ -22,12 +23,12 @@ const SignUpForm = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!displayName || !email || !password || !confirmPassword) {
       alert("Fill all the empty fields.");
@@ -43,14 +44,14 @@ const SignUpForm = () => {
       dispatch(signUpStart(email, password, displayName));
       resetFormFields();
     } catch (error) {
-      switch (error.code) {
-        case "auth/weak-password":
+      switch ((error as AuthError).code) {
+        case AuthErrorCodes.WEAK_PASSWORD:
           alert("Password should be at least 6 characters.");
           break;
-        case "auth/email-already-in-use":
+        case AuthErrorCodes.EMAIL_EXISTS:
           alert("The email is already in use.");
           break;
-        case "auth/invalid-email":
+        case AuthErrorCodes.INVALID_EMAIL:
           alert("The email is invalid.");
           break;
         default:

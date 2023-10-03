@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import FormInput from "../form-input/form-input.component";
 import "./sign-in-form.styles";
 import Button from "../button/button.component";
@@ -9,6 +9,7 @@ import {
   emailSignInStart,
   googleSignInStart,
 } from "../../store/user/user.action";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
 
 const defaultFormFields = {
   email: "",
@@ -24,12 +25,12 @@ const SignInForm = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!email || !password) {
       alert("Fill all the empty fields.");
@@ -40,11 +41,11 @@ const SignInForm = () => {
       dispatch(emailSignInStart(email, password));
       resetFormFields();
     } catch (error) {
-      switch (error.code) {
-        case "auth/user-not-found":
+      switch ((error as AuthError).code) {
+        case AuthErrorCodes.USER_DELETED:
           alert("No user is associated with this email.");
           break;
-        case "auth/wrong-password":
+        case AuthErrorCodes.INVALID_PASSWORD:
           alert("The password is incorrect.");
           break;
         default:
