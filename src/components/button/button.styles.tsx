@@ -35,7 +35,7 @@ export const GoogleSignInButton = styled(BaseButton)`
     background-color: #357ae8;
     border: none;
   }
-`;
+` as typeof BaseButton;
 
 export const InvertedButton = styled(BaseButton)`
   background-color: white;
@@ -47,9 +47,9 @@ export const InvertedButton = styled(BaseButton)`
     color: white;
     border: none;
   }
-`;
+` as typeof BaseButton;
 
 export const ButtonSpinner = styled(SpinnerContainer)`
   height: 30px;
   width: 30px;
-`;
+` as typeof SpinnerContainer;
