@@ -9,12 +9,16 @@ import {
 } from "./cart-dropdown.styles";
 import { useSelector } from "react-redux";
 import { selectCartItems } from "../../store/cart/cart.selector";
+import { useCallback } from "react";
 
 const CartDropdown = () => {
   const cartItems = useSelector(selectCartItems);
 
   const navigate = useNavigate();
-  const goToCheckoutHandler = () => navigate("checkout");
+  const goToCheckoutHandler = useCallback(() => {
+    navigate("checkout");
+  }, []);
+
   return (
     <CartDropdownContainer>
       <CartItems>
