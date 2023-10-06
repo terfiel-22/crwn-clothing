@@ -1,15 +1,12 @@
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { BUTTON_TYPE_CLASSES } from "../button/button.type";
-import {
-  FormContainer,
-  PaymentButton,
-  PaymentFormContainer,
-} from "./payment-form.styles";
+import { FormContainer, PaymentFormContainer } from "./payment-form.styles";
 import { useSelector } from "react-redux";
 import { selectCartTotal } from "../../store/cart/cart.selector";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { FormEvent, useState } from "react";
 import { StripeCardElement } from "@stripe/stripe-js";
+import Button from "../button/button.component";
 
 const isValidCardElement = (
   card: StripeCardElement | null
@@ -65,13 +62,16 @@ const PaymentForm = () => {
       <FormContainer onSubmit={paymentHandler}>
         <h2>Credit Card Payment</h2>
         <CardElement />
-        <PaymentButton
+        <Button
           buttonType={BUTTON_TYPE_CLASSES.inverted}
           isLoading={isProcessingPayment}
-          buttonOptions={{ type: "submit" }}
+          buttonOptions={{
+            type: "submit",
+            style: { marginLeft: "auto", marginTop: "30px" },
+          }}
         >
           Pay now
-        </PaymentButton>
+        </Button>
       </FormContainer>
     </PaymentFormContainer>
   );

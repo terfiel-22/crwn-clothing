@@ -40,4 +40,8 @@ export const CheckoutItemContainer = styled.div`
     padding-left: 12px;
     cursor: pointer;
   }
+
+  @media screen and (max-width: 800px) {
+    font-size: 16px;
+  }
 `;
